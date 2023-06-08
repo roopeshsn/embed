@@ -38,9 +38,9 @@
           id="user-dropdown"
         >
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900">Bonnie Green</span>
+            <span class="block text-sm text-gray-900">{{user?.name}}</span>
             <span class="block text-sm text-gray-500 truncate"
-              >name@flowbite.com</span
+              >{{user?.email}}</span
             >
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
@@ -73,15 +73,27 @@
 </template>
 
 <script>
+import { useAuthStore } from '../stores/AuthStore'
+
 export default {
   data() {
+    const auth = useAuthStore()
+    let user = auth.getUser()
     return {
+      user,
       isOpen: false,
     }
   },
   methods: {
     handleMenu() {
       this.isOpen = !this.isOpen
+    },
+  },
+  watch: {
+    user(newUser, oldUser) {
+      if (newUser) {
+        return auth.getUser()
+      }
     },
   },
 }

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { account } from '../api';
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
@@ -7,6 +8,9 @@ export const useAuthStore = defineStore('authStore', {
   actions: {
     setUser(user) {
       this.user = user
+    },
+    getUser() {
+      return this.user
     },
     clearUser() {
       this.user = null

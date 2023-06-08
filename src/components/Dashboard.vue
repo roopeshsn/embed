@@ -1,5 +1,5 @@
 <template>
-  <Navbar />
+  <Navbar user />
   <Container>
     <div class="border-b-2 border-solid border-zinc-200">
       <div class="my-4">
@@ -19,7 +19,7 @@
     <section class="bg-white">
       <div class="mt-4">
         <span
-          class="bg-yellow-100 float-left text-yellow-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 border border-yellow-400"
+          class="bg-yellow-100 float-left text-yellow-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded border border-yellow-400"
         >
           Preview
         </span>
@@ -90,7 +90,10 @@
     <div
       class="container mx-auto max-w-3xl border-t-2 border-solid border-zinc-200"
     >
-      <button class="px-4 py-2 bg-black text-white rounded-md my-4">
+      <button
+        class="px-4 py-2 bg-black text-white rounded-md my-4"
+        @click="handleDeploy"
+      >
         Deploy and get link
       </button>
     </div>
@@ -101,6 +104,9 @@
 import Container from './Container.vue'
 import CenteredContainer from './CenteredContainer.vue'
 import Navbar from './Navbar.vue'
+import { useAuthStore } from '../stores/AuthStore'
+import { account, databases, dbId, formsCollectionId } from '../api'
+import { ID } from 'appwrite'
 
 export default {
   components: {
@@ -109,6 +115,17 @@ export default {
     Navbar,
   },
   data() {
+    const auth = useAuthStore()
+    try {
+      account
+        .get()
+        .then((user) => {
+          auth.setUser(user)
+        })
+        .catch((e) => console.error(e))
+    } catch (e) {
+      console.log('Error getting Account', e)
+    }
     return {
       formHeader: 'Contact Us',
       formSubHeader:
@@ -121,6 +138,34 @@ export default {
     },
     handleFormSubHeaderChange(e) {
       this.formSubHeader = e.target.value
+    },
+    handleDeploy() {
+      const auth = useAuthStore()
+      let user = auth.getUser()
+      console.log(user)
+      let formObj = {
+        uid: user.$id,
+        userEmail: user.email,
+        formHeader: this.formHeader,
+        formSubHeader: this.formSubHeader,
+      }
+
+      const promise = databases.createDocument(
+        dbId,
+        formsCollectionId,
+        ID.unique(),
+        formObj
+      )
+
+      promise.then(
+        function (response) {
+          console.log(response)
+        },
+        function (error) {
+          console.log(error)
+        }
+      )
+      console.log(formObj)
     },
   },
 }
