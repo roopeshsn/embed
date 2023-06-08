@@ -3,6 +3,7 @@ import Home from '../components/Home.vue'
 import Signin from '../components/Signin.vue'
 import Signup from '../components/Signup.vue'
 import Dashboard from '../components/Dashboard.vue'
+import Contact from '../components/Contact.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+  },
+  {
+    path: '/contact/embed/:id',
+    name: 'Contact',
+    component: Contact,
   },
 ]
 
