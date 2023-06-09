@@ -1,29 +1,21 @@
-# embed
+# Embed
 
-This template should help get you started developing with Vue 3 in Vite.
+**Embed** is a low-code tool to embed contact and feedback forms instantly to your application using iframe!
 
-## Recommended IDE Setup
+## Getting Started
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Sign in and choose the style for contact page, deploy it, and copy the iframe tag. Paste the copied iframe tag in your application.
 
-## Customize configuration
+## Usage
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### HTML
 
-## Project Setup
-
-```sh
-npm install
+```
+<iframe src="http://localhost:5173/contact/embed/321" title="contact" style="width: 100%; height: 88vh; border: none"></iframe>
 ```
 
-### Compile and Hot-Reload for Development
+### React
 
-```sh
-npm run dev
 ```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
+<iframe src="http://localhost:5173/contact/embed/321" title="contact" style={{width='100%', height: '88vh', border: 'none'}}></iframe>
 ```
