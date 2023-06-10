@@ -1,8 +1,6 @@
 <template>
-  <nav class="bg-white border-gray-200">
-    <div
-      class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-    >
+  <nav class="bg-white border-gray-200 mx-auto max-w-3xl">
+    <div class="flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="/" class="flex items-center">
         <!-- <img
           src="https://flowbite.com/docs/images/logo.svg"
@@ -10,10 +8,10 @@
           alt="Embed Logo"
         /> -->
         <span class="self-center text-2xl font-semibold whitespace-nowrap"
-          >Stitch</span
+          >Embed</span
         >
       </a>
-      <div class="flex items-center md:order-2">
+      <div class="relative">
         <button
           type="button"
           @click="handleMenu"
@@ -26,21 +24,21 @@
           <span class="sr-only">Open user menu</span>
           <img
             class="w-8 h-8 rounded-full"
-            src="/docs/images/people/profile-picture-3.jpg"
+            src="https://res.cloudinary.com/dtinnnjnt/image/upload/v1686404578/embed-project/embed-user-profile_ldwinx.png"
             alt="user photo"
           />
         </button>
         <!-- Dropdown menu -->
         <!-- prettier-ignore -->
         <div
-          class="z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow"
+          class="z-10 absolute right-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
           :class="{ 'block': isOpen == true, 'hidden': isOpen == false }"
           id="user-dropdown"
         >
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900">{{user?.name}}</span>
+            <span class="block text-sm text-gray-900">{{user?.name || 'User'}}</span>
             <span class="block text-sm text-gray-500 truncate"
-              >{{user?.email}}</span
+              >{{user?.email || 'user@user.com'}}</span
             >
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
@@ -49,13 +47,6 @@
                 href="#"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >Profile</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >Settings</a
               >
             </li>
             <li>
@@ -73,27 +64,21 @@
 </template>
 
 <script>
-import { useAuthStore } from '../stores/AuthStore'
-
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
-    const auth = useAuthStore()
-    let user = auth.getUser()
     return {
-      user,
       isOpen: false,
     }
   },
   methods: {
     handleMenu() {
       this.isOpen = !this.isOpen
-    },
-  },
-  watch: {
-    user(newUser, oldUser) {
-      if (newUser) {
-        return auth.getUser()
-      }
     },
   },
 }

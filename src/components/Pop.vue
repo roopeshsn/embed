@@ -1,7 +1,7 @@
 <template>
   <div
     id="toast-default"
-    class="flex items-center p-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow mb-1"
+    class="flex items-center p-4 w-full max-w-sm text-gray-500 bg-white rounded-lg shadow mb-1"
     role="alert"
   >
     <div
@@ -79,15 +79,20 @@ export default {
       type: String,
       required: true,
     },
+    closePop: {
+      type: Function,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      isOpen: false,
+    }
   },
   methods: {
     closeToast() {
-      // Handle the close button action here
+      this.closePop()
     },
   },
 }
 </script>
-
-<style scoped>
-/* Add your component-specific styles here */
-</style>
