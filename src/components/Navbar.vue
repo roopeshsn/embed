@@ -43,18 +43,16 @@
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
             <li>
-              <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >Profile</a
-              >
+              <router-link to="/profile">
+                <div class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  Profile
+                </div>
+              </router-link>
             </li>
             <li>
-              <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >Sign out</a
-              >
+              <div class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" @click="handleSignout">
+                Sign out
+              </div>
             </li>
           </ul>
         </div>
@@ -64,6 +62,8 @@
 </template>
 
 <script>
+import { account } from '../api'
+
 export default {
   props: {
     user: {
@@ -79,6 +79,17 @@ export default {
   methods: {
     handleMenu() {
       this.isOpen = !this.isOpen
+    },
+    async handleSignout() {
+      const currentSession = await account.getSession('current')
+      console.log(currentSession)
+      const promise = account.deleteSession(currentSession.$id)
+      promise
+        .then((res) => {
+          console.log(res)
+          this.$router.push('/')
+        })
+        .catch((e) => console.error(e))
     },
   },
 }

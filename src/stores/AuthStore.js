@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { account } from '../api';
 
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
@@ -14,6 +13,12 @@ export const useAuthStore = defineStore('authStore', {
     },
     clearUser() {
       this.user = null
+    },
+    isAuthenticated() {
+      if(this.getUser()) {
+        return true
+      }
+      return false
     },
   },
 })

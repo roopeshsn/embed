@@ -1,16 +1,19 @@
-<template lang="">
+<template>
   <footer
     class="bg-white container max-w-3xl mx-auto rounded-lg shadow sm:flex sm:items-center sm:justify-between p-4"
   >
     <p class="mb-4 text-sm text-center text-gray-500 sm:mb-0">
-      &copy;
-      <a href="https://flowbite.com/" class="hover:underline" target="_blank"
-        >Embed</a
-      >. All rights reserved.
+      &copy; 2023
+      <router-link to="/">
+        <span class="hover:underline">Embed</span>.
+      </router-link>
+      All rights reserved.
     </p>
     <div class="flex justify-center items-center space-x-1">
       <a
-        href="#"
+        href="https://github.com/roopeshsn/embed"
+        target="_blank"
+        rel="noopener"
         data-tooltip-target="tooltip-github"
         class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100"
       >
