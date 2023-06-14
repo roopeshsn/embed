@@ -7,6 +7,7 @@ import ContactFormBuilder from '../components/ContactFormBuilder.vue'
 import Contact from '../components/Contact.vue'
 import Profile from '../components/Profile.vue'
 import WorkInProgress from '../components/WorkInProgress.vue'
+import Message from '../components/Message.vue'
 import { isAuthenticated } from '../api'
 
 const routes = [
@@ -59,9 +60,15 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/embed/contact/:id',
+    path: '/embed/contact-form/:id',
     name: 'Contact',
     component: Contact,
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/form',
+    name: 'Status',
+    component: Message,
     meta: { requiresAuth: false }
   },
   {

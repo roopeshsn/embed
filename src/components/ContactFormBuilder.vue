@@ -55,7 +55,7 @@
           <p class="text-md text-gray-400">
             Choose the design of the contact form (Modern is default).
           </p>
-          <div class="mt-2 flex gap-2 md:gap-4">
+          <!-- <div class="mt-2 flex gap-2 md:gap-4">
             <button
               ref="designButton"
               class="px-6 py-2 md:px-12 md:py-4 bg-blue-100 rounded-md focus:ring-2 focus:border-blue-700"
@@ -73,7 +73,47 @@
             >
               Materialistic
             </button>
-          </div>
+          </div> -->
+
+          <ul class="grid w-full gap-6 md:grid-cols-2 mt-4">
+            <li>
+              <input
+                v-model="formStyle"
+                type="radio"
+                id="hosting-small"
+                name="hosting"
+                value="modern"
+                class="hidden peer"
+                required
+              />
+              <label
+                for="hosting-small"
+                class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+              >
+                <div class="block">
+                  <div class="w-full text-lg font-semibold">Modern</div>
+                </div>
+              </label>
+            </li>
+            <li>
+              <input
+                v-model="formStyle"
+                type="radio"
+                id="hosting-big"
+                name="hosting"
+                value="material"
+                class="hidden peer"
+              />
+              <label
+                for="hosting-big"
+                class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+              >
+                <div class="block">
+                  <div class="w-full text-lg font-semibold">Materialistic</div>
+                </div>
+              </label>
+            </li>
+          </ul>
         </div>
       </div>
       <section class="bg-white">
@@ -84,7 +124,7 @@
             Preview
           </span>
           <span class="text-gray-400 text-sm float-right"
-            >Powered by Stitch</span
+            >Powered by Embed</span
           >
         </div>
         <div class="py-4 lg:py-8 mx-auto">
@@ -251,7 +291,9 @@
           class="px-4 py-2 bg-black text-white rounded-md mt-8 font-medium"
           @click="handleDeploy"
         >
-          Deploy form and get link
+          {{
+            deployedAtleastOnce ? 'Deploy form config' : 'Update form config'
+          }}
         </button>
       </div>
     </div>
@@ -260,6 +302,7 @@
         <table class="w-full text-sm text-left text-gray-500 mt-4">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
+              <th scope="col" class="px-6 py-3">Name</th>
               <th scope="col" class="px-6 py-3">Email Address</th>
               <th scope="col" class="px-6 py-3">Subject</th>
               <th scope="col" class="px-6 py-3">Message</th>
@@ -275,6 +318,9 @@
                 scope="row"
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
+                {{ response.name }}
+              </th>
+              <th class="px-6 py-4">
                 {{ response.email }}
               </th>
               <td class="px-6 py-4">{{ response.subject }}</td>
@@ -360,6 +406,7 @@ export default {
       formHeader: 'Contact Us',
       formSubHeader:
         'Got a technical issue? Want to send feedback about a beta feature? Let us know.',
+      formStyle: 'modern',
       pageSource: 'https://embed.com',
       responses: [],
       startingIframeLink: '<iframe src=',
@@ -371,8 +418,8 @@ export default {
   },
   async mounted() {
     await this.handleAuth()
+    await this.fetchFormConfig()
     this.fetchResponses()
-    this.focusDesignButton()
     this.generateIframeLink()
   },
   computed: {
@@ -402,6 +449,8 @@ export default {
         userEmail: user.email,
         formHeader: this.formHeader,
         formSubHeader: this.formSubHeader,
+        formType: 'contact',
+        formStyle: this.formStyle,
       }
 
       const promise1 = databases.listDocuments(dbId, formsCollectionId, [
@@ -435,6 +484,7 @@ export default {
             let needToBeUpdated = {
               formHeader: this.formHeader,
               formSubHeader: this.formSubHeader,
+              formStyle: this.formStyle,
             }
             const promise = databases.updateDocument(
               dbId,
@@ -500,13 +550,34 @@ export default {
       ])
     },
     generateIframeLink() {
-      const base = 'http://localhost:5173/embed/contact'
+      const base = 'http://localhost:5173/embed/contact-form'
       const auth = useAuthStore()
       let user = auth.getUser()
       let uid = user.$id
       let srcLink = base + '/' + uid
       let iframeLink = this.startingIframeLink + srcLink + this.endingIframeLink
       this.iframeLink = iframeLink
+    },
+    fetchFormConfig() {
+      const auth = useAuthStore()
+      let user = auth.getUser()
+      const promise = databases.listDocuments(dbId, formsCollectionId, [
+        Query.equal('uid', user.$id),
+      ])
+      promise
+        .then((res) => {
+          console.log(res)
+          if (res.total > 0) {
+            const { formType, formHeader, formSubHeader, formStyle } =
+              res.documents[0]
+            this.formType = formType
+            this.formHeader = formHeader
+            this.formSubHeader = formSubHeader
+            this.formStyle = formStyle
+            this.deployedAtleastOnce = true
+          }
+        })
+        .catch((e) => console.error(e))
     },
   },
 }
