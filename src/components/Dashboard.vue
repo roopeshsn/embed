@@ -3,7 +3,7 @@
   <Container>
     <div class="p-4 bg-yellow-200 rounded-lg mt-4">
       <h1>
-        Build and embed forms instantly in your website using
+        Create and embed forms instantly in your website using
         <span class="font-medium">Embed</span>!
       </h1>
     </div>

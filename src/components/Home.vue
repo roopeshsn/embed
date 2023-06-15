@@ -2,7 +2,7 @@
   <div
     class="min-h-screen flex flex-col justify-center items-center p-4 text-center"
   >
-    <h1 class="text-3xl">Embed</h1>
+    <h1 class="text-3xl">EMBED</h1>
     <h2 class="text-2xl text-zinc-500 mt-2">A low-code tool!</h2>
     <h3 class="text-xl mt-4">
       Create and embed contact and feedback forms instantly to your application
