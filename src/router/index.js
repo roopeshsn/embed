@@ -8,6 +8,7 @@ import Contact from '../components/Contact.vue'
 import Profile from '../components/Profile.vue'
 import WorkInProgress from '../components/WorkInProgress.vue'
 import Message from '../components/Message.vue'
+import NotFound from '../components/NotFound.vue'
 import { isAuthenticated } from '../api'
 
 const routes = [
@@ -71,12 +72,11 @@ const routes = [
     component: Message,
     meta: { requiresAuth: false }
   },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
-    meta: { requiresAuth: true }
-  },
+  { 
+    path: '/:pathMatch(.*)*', 
+    name: 'NotFound', 
+    component: NotFound 
+  }
 ]
 
 const router = createRouter({

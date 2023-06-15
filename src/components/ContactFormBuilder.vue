@@ -468,7 +468,6 @@ export default {
             )
             promise
               .then((res) => {
-                // console.log(res)
                 this.deployStatus = 'success'
                 this.deployedAtleastOnce = true
                 this.generateIframeLink()
@@ -494,7 +493,6 @@ export default {
             )
             promise
               .then((res) => {
-                // console.log(res)
                 this.deployMessage = 'Contact form updated successfully!'
                 this.deployStatus = 'success'
               })

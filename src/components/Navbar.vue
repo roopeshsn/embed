@@ -41,14 +41,7 @@
               >{{user?.email || 'user@user.com'}}</span
             >
           </div>
-          <ul class="py-2" aria-labelledby="user-menu-button">
-            <li>
-              <router-link to="/profile">
-                <div class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  Profile
-                </div>
-              </router-link>
-            </li>
+          <ul class="py-2" aria-labelledby="user-menu-button">         
             <li>
               <div class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" @click="handleSignout">
                 Sign out
