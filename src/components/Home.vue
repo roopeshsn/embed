@@ -70,8 +70,8 @@ export default {
       try {
         await account.createOAuth2Session(
           provider,
-          'http://localhost:5173/dashboard',
-          'http://localhost:5173/'
+          'https://embedio.vercel.app/dashboard',
+          'https://embedio.vercel.app/'
         )
       } catch (error) {
         console.error('Failed to initiate OAuth login', error)

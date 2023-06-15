@@ -12,7 +12,7 @@ Sign in and choose the style for contact page, deploy it, and copy the iframe ta
 
 ```
 <iframe
-  src="http://embed.vercel.app/embed/'[FORM_TYPE]'/'[UNIQUE_ID]'"
+  src="http://embedio.vercel.app/embed/'[FORM_TYPE]'/'[UNIQUE_ID]'"
   title="contact"
   style="width: 100%; height: 100vh; border: none">
 </iframe>
@@ -22,7 +22,7 @@ Sign in and choose the style for contact page, deploy it, and copy the iframe ta
 
 ```
 <iframe
-  src="http://embed.vercel.app/embed/'[FORM_TYPE]'/'[UNIQUE_ID]'"
+  src="http://embedio.vercel.app/embed/'[FORM_TYPE]'/'[UNIQUE_ID]'"
   title="contact"
   style={{width='100%', height: '100vh', border: 'none'}}>
 </iframe>
