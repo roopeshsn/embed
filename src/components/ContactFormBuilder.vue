@@ -411,7 +411,7 @@ export default {
       responses: [],
       startingIframeLink: '<iframe src=',
       endingIframeLink:
-        ' title="contact" style="width: 100%; height: 88vh; border: none"></iframe>',
+        'title="contact" style="width: 100%; height: 88vh; border: none"></iframe>',
       iframeLink: null,
       deployedAtleastOnce: false,
     }
@@ -552,7 +552,7 @@ export default {
       let user = auth.getUser()
       let uid = user.$id
       let srcLink = base + '/' + uid
-      let iframeLink = this.startingIframeLink + srcLink + this.endingIframeLink
+      let iframeLink = `${this.startingIframeLink}"${srcLink}" ${this.endingIframeLink}`
       this.iframeLink = iframeLink
     },
     fetchFormConfig() {

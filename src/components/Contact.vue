@@ -295,7 +295,7 @@ export default {
           console.log(res)
           const { formType, formHeader, formSubHeader, formStyle } =
             res.documents[0]
-          this.formConfig.formType = formType
+          // this.formConfig.formType = formType
           this.formConfig.formHeader = formHeader
           this.formConfig.formSubHeader = formSubHeader
           this.formConfig.formStyle = formStyle
