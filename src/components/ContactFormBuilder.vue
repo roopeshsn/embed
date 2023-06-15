@@ -520,7 +520,6 @@ export default {
     fetchResponses() {
       const auth = useAuthStore()
       let user = auth.getUser()
-      // console.log(user.$id)
       // prettier-ignore
       const promise = databases.listDocuments(dbId, responsesCollectionId, [
         Query.equal('uid', [user.$id]),
@@ -564,7 +563,6 @@ export default {
       ])
       promise
         .then((res) => {
-          console.log(res)
           if (res.total > 0) {
             const { formType, formHeader, formSubHeader, formStyle } =
               res.documents[0]

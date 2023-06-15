@@ -59,6 +59,7 @@ export default {
   },
   data() {
     return {
+      env: 'production',
       user: null,
     }
   },
@@ -67,12 +68,17 @@ export default {
   },
   methods: {
     async loginWithOAuth(provider) {
+      let successUrl = ''
+      let errorUrl = ''
+      if (this.env == 'development') {
+        successUrl = 'http://localhost:5173/dashboard'
+        errorUrl = 'http://localhost:5173/'
+      } else {
+        successUrl = 'https://embedio.vercel.app/dashboard'
+        errorUrl = 'https://embedio.vercel.app/'
+      }
       try {
-        await account.createOAuth2Session(
-          provider,
-          'https://embedio.vercel.app/dashboard',
-          'https://embedio.vercel.app/'
-        )
+        await account.createOAuth2Session(provider, successUrl, errorUrl)
       } catch (error) {
         console.error('Failed to initiate OAuth login', error)
       }
